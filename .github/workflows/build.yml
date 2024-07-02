@@ -49,9 +49,9 @@ jobs:
           docker-scout cves yashthedocker/myntra:latest
 
   deploy:
-       needs: build-analyze-scan   
-       runs-on: [self-hosted]
-  steps:
+    needs: build-analyze-scan   
+    runs-on: [self-hosted]
+    steps:
       - name: docker pull image
         run: docker pull yashthedocker/myntra:latest
 
