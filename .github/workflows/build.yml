@@ -23,10 +23,19 @@ jobs:
       - name: Docker Login
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Docker Scout Scan
+      - name: Install docker-scout
         run: |
-          docker-scout quickview fs://.
-          docker-scout cves fs://.
+         curl -sSL https://example.com/install-docker-scout.sh | sh
+         sudo mv docker-scout /usr/local/bin/
+      
+      - name: Verify docker-scout installation
+        run: docker-scout --version
+
+      - name: Run docker-scout quickview
+        run: docker-scout quickview fs://.
+
+      - name: Run docker-scout cves
+        run: docker-scout cves fs://.
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
