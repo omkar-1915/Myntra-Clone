@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-
 jobs:
   build:
     name: Build
@@ -25,7 +24,7 @@ jobs:
 
       - name: Install docker-scout
         run: |
-         curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin
+          curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin
 
       - name: Run docker-scout quickview
         run: docker-scout quickview fs://.
@@ -47,11 +46,12 @@ jobs:
         run: |
           docker-scout quickview yashthedocker/myntra:latest
           docker-scout cves yashthedocker/myntra:latest
+
   deploy:
-    needs:build-analyze-scan   
-    runs-on:[self-hosted]
+    needs: build
+    runs-on: self-hosted
     steps:
-       - name: docker pull image
+      - name: docker pull image
         run: docker pull yashthedocker/myntra:latest
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
