@@ -32,6 +32,21 @@ jobs:
 
       - name: Run docker-scout cves
         run: docker-scout cves fs://.
+        
+      - name: Docker build and push
+        run: |
+          # Run commands to build and push Docker images
+          docker build -t myntra .
+          docker tag myntra yashthedocker/myntra:latest
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker push yashthedocker/myntra:latest
+        env:
+          DOCKER_CLI_ACI: 1
+
+      - name: Docker Scout Image Scan
+        run: |
+          docker-scout quickview yashthedocker/myntra:latest
+          docker-scout cves yashthedocker/myntra:latest
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
