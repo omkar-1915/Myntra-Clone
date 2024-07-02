@@ -14,8 +14,8 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Deploy to container
         run: |
-          docker stop myntra
-          docker rm myntra
+          docker stop 52de851aa1c0
+          docker rmi 52de851aa1c0
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name EKS_CLOUD
       - name: Deploy to kubernetes
