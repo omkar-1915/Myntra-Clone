@@ -15,7 +15,7 @@ jobs:
       - name: Deploy to container
         run: |
           docker stop 52de851aa1c0
-          docker rmi 21550cd66a9e c4c70f66db0e
+          docker rmi 21550cd66a9e
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name EKS_CLOUD
       - name: Deploy to kubernetes
