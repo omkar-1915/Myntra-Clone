@@ -25,7 +25,7 @@ jobs:
 
       - name: Install docker-scout
         run: |
-         curl -sSL https://example.com/install-docker-scout.sh | sh
+         curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin
          sudo mv docker-scout /usr/local/bin/
       
       - name: Verify docker-scout installation
