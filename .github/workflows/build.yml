@@ -1,71 +1,22 @@
-name: Build
-
+name: Build,Analyze,scan
 on:
   push:
     branches:
       - main
-
 jobs:
-  build:
+  build-analyze-scan:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      - name: NPM Install
-        run: npm install # Add your specific npm install command
-      - name: Docker Login
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Install docker-scout
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Run docker-scout quickview
-        run: docker-scout quickview fs://.
-
-      - name: Run docker-scout cves
-        run: docker-scout cves fs://.
-        
-      - name: Docker build and push
-        run: |
-          # Run commands to build and push Docker images
-          docker build -t myntra .
-          docker tag myntra yashthedocker/myntra:latest
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push yashthedocker/myntra:latest
-        env:
-          DOCKER_CLI_ACI: 1
-
-      - name: Docker Scout Image Scan
-        run: |
-          docker-scout quickview yashthedocker/myntra:latest
-          docker-scout cves yashthedocker/myntra:latest
-
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: docker pull image
-        run: docker pull yashthedocker/myntra:latest
-        
       - name: Deploy to container
-        run: docker run -d --name game -p 3000:3000 yashthedocker/myntra:latest
-
+        run: |
+          docker stop myntra
+          docker rm myntra
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name EKS_CLOUD
-
       - name: Deploy to kubernetes
-        run: kubectl apply -h deployment-service.yml
-        
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: kubectl delete -f deployment-service.yml
