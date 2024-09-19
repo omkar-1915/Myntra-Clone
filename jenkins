@@ -1,15 +1,27 @@
 pipeline {
-agent any
-stages {
-      stage('scm checkout'){
-            steps{git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
-}}
-       stage('sonar analysis'){
-            steps{ withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
-                  sh 'sonar:sonar'
-}}
-       stage('docker build images'){
-            steps{ withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-             sh 'docker build -t myntra'
+    agent any
+    
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
+            }
+        }
+
+        stage('Sonar Analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
+                    sh 'mvn sonar:sonar'  // Assuming you're using Maven for this project
+                }
+            }
+        }
+
+        stage('Docker Build Images') {
+            steps {
+                withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                    sh 'docker build -t myntra .'
+                }
+            }
+        }
+    }
 }
-}}}}}
