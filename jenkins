@@ -10,8 +10,8 @@ pipeline {
 
         stage('Sonar Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
-                    sh 'mvn sonar:sonar'  // Assuming you're using Maven
+                withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
+                    sh 'mvn sonar:sonar' 
                 }
             }
         }
