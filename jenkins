@@ -11,14 +11,14 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
-                    sh 'mvn sonar:sonar'  // Assuming you're using Maven for this project
+                    sh 'mvn sonar:sonar'  // Assuming you're using Maven
                 }
             }
         }
 
         stage('Docker Build Images') {
             steps {
-                withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'docker') {
                     sh 'docker build -t myntra .'
                 }
             }
