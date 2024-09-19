@@ -6,7 +6,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
             }
         } 
-        stage(docker images') {
+        stage('docker images') {
             steps {withDockerRegistry(credentialsId: 'docker') {
              sh 'docker build -t myntra'
 }}}}}
