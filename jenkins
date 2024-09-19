@@ -7,6 +7,6 @@ pipeline {
             }
         } 
         stage('docker images') {
-            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'Docker', url: 'https://hub.docker.com') {
-             sh 'docker buildx -t myntra'
+            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'Docker') {
+             sh 'docker build -t myntra'
 }}}}}
