@@ -5,7 +5,7 @@ stages {
             steps{git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
 }}
        stage('sonar scannar'){
-            steps{ withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
+            steps{ withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
              sh 'mvn sonar:sonar'
 }
 }}}}
