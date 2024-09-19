@@ -4,8 +4,8 @@ stages {
       stage('scm checkout'){
             steps{git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
 }}
-       stage('SonarQube Analysis'){
-            steps{ withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'Sonar') {
-             sh 'sonar:sonar'
+       stage('docker build images'){
+            steps{ withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
+             sh 'docker build -t myntra'
 }
 }}}}
