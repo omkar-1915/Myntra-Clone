@@ -8,5 +8,5 @@ pipeline {
         } 
         stage(docker images') {
             steps {withDockerRegistry(credentialsId: 'docker') {
-             sh 'docker build . -t myntra'
+             sh 'docker build -t myntra'
 }}}}}
