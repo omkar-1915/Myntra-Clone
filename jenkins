@@ -8,5 +8,5 @@ pipeline {
         } 
         stage('docker images') {
             steps {
-             sh 'docker build -t myntra'
+             sh 'docker buildx -t myntra'
 }}}}
