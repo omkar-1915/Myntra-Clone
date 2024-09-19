@@ -1,1 +1,7 @@
-
+pipeline {
+any agent
+stages
+}
+stage ('scm checkout'){
+steps {git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
+}}
