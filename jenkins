@@ -6,6 +6,6 @@ stages {
 }}
        stage('sonar scannar'){
             steps{ withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
-             sh 'sonar:sonar'
+             sh 'mvn sonar:sonar'
 }
 }}}}
