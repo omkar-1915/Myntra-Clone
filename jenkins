@@ -9,5 +9,7 @@ pipeline {
     stage('docker build') {
             steps { 
                sh 'docker build -t myntra . '
+               sh 'docker images'
+               sh 'docker run -itd -p 3000:3000 --name myntra myntra:latest'
                 }
             }}}
