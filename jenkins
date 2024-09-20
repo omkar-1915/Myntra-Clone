@@ -16,5 +16,5 @@ pipeline {
             steps { 
            script{
              docker.withRegistry("https://index.docker.io/v1/", "docker"){
-            docker.image ("yashthedocker/myntra").push("01")
+            docker.image ("yashthedocker/myntra").push("latest")
 }}}}}}
