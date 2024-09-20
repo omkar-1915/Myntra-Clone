@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+    }
+environment {
+   SCANNER_HOME=tool 'sonar'   
+}
     stages {
         stage('SCM Checkout') {
             steps {
@@ -10,8 +13,7 @@ pipeline {
     stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') {
-                    sh 'mvn clean verify sonar:sonar'
+                    sh ''' $SCANNER_HOME/bin/sonar -Dsonar.projectName=myntra \'
                 }
             }
-        }
-}}
+        }}
