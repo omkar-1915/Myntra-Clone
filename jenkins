@@ -14,7 +14,6 @@ pipeline {
             }
     stage("docker push") {
             steps { 
-           script{
-             docker.withRegistry("https://index.docker.io/v1/", "docker"){
-            docker.image ("yashthedocker/myntra").push("latest")
-}}}}}}
+               withDockerRegistry(credentialsId: 'docker', url: 'https://index.docker.io/v1/'){
+               sh "docker push yashthedocker/myntra:01"
+}}}}}
