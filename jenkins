@@ -6,22 +6,4 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
             }
-        }
-
-        stage('Sonar Analysis') {
-            steps {
-                withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
-                    sh 'mvn sonar:sonar' 
-                }
-            }
-        }
-
-        stage('Docker Build Images') {
-            steps {
-                withDockerRegistry(credentialsId: 'docker', toolName:) {
-                    sh 'docker build -t myntra .'
-                }
-            }
-        }
-    }
-}
+        }}}
