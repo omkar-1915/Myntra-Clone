@@ -10,6 +10,9 @@ pipeline {
             steps { 
                sh 'docker build -t yashthedocker/myntra:01 .'
                sh 'docker images'
-               sh 'docker push yashthedocker/myntra:01'
                 }
-            }}}
+            }
+    stage('docker push') {
+            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'docker')
+            sh 'docker push yashthedocker/myntra:01'
+}}}}
