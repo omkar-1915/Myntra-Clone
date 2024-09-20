@@ -8,7 +8,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 #stage 2
-FROM node:alpine-slim
+FROM node:alpine
 
 WORKDIR /app
 
