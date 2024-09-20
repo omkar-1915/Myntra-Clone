@@ -12,8 +12,8 @@ environment {
         }
     stage('Sonar Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') {
-                    sh ''' $SCANNER_HOME/bin/sonar -Dsonar.projectName=myntra \'
+               withSonarQubeEnv(credentialsId: 'sonar') {
+                    sh ''' $SCANNER_HOME/bin/sonar -Dsonar.projectName=project-myntra \'''
                 }
             }
         }}
