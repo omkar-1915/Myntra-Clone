@@ -9,7 +9,7 @@ pipeline {
     stage('docker build') {
             steps { 
                sh 'docker build -t yashthedocker/myntra:01 .'
-               sh 'docker push yashthedoker/myntra:01'
                sh 'docker images'
+               sh 'docker push yashthedocker/myntra:01'
                 }
             }}}
