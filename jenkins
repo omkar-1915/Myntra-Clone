@@ -13,6 +13,6 @@ pipeline {
                 }
             }
     stage('docker push') {
-            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'docker')
+            steps {
             sh 'docker push yashthedocker/myntra:01'
 }}}}
