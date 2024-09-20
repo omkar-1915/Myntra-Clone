@@ -14,7 +14,7 @@ pipeline {
                 }
             }
     stage('docker push image') {
-            steps { withDockerRegistry(credentialsId: 'docker')
+            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'docker')
                sh 'docker tag myntra:latest yashthedocker/myntra:01'
                sh 'docker push yashthedoker/myntra:01'
 }}}}
