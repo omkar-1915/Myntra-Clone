@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    }
     stages {
         stage('SCM Checkout') {
             steps {
@@ -11,5 +10,4 @@ pipeline {
             steps { withDockerRegistry(credentialsId: 'docker')
                sh 'docker build -t myntra . '
                 }
-            }
-        }}
+            }}}
