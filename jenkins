@@ -1,20 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('SCM Checkout') {
+        stage("SCM Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'
+                git branch: "main", url: "https://github.com/yashighokar1412/Myntra-Clone.git"
             }
         }
-    stage('docker build') {
+    stage("docker build") {
             steps { 
-               sh 'docker build -t yashthedocker/myntra:01 .'
-               sh 'docker images'
+               sh "docker build -t yashthedocker/myntra:01 ."
+               sh "docker images"
                 }
             }
-    stage('docker push') {
+    stage("docker push") {
             steps { 
            script{
-             docker.withRegistry('https://index.docker.io/v1' , 'docker'){
-            docker.image ('yashthedocker/myntra').push('01')
+             docker.withRegistry("https://index.docker.io/v1/", "docker"){
+            docker.image ("yashthedocker/myntra").push("01")
 }}}}}}
