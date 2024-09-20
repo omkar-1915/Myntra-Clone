@@ -1,5 +1,4 @@
-#stage 1
-FROM node:alpine AS node
+FROM node:alpine
 
 WORKDIR /app
 
@@ -7,16 +6,9 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
-#stage 2
-FROM node:alpine
-
-WORKDIR /app
-
-COPY --from=node /app .
+COPY . . 
 
 RUN  npm run build
-
-COPY . .
 
 EXPOSE 3000
 
