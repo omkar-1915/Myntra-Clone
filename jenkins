@@ -12,4 +12,9 @@ pipeline {
                sh 'docker images'
                sh 'docker run -itd -p 3000:3000 --name myntra myntra:latest'
                 }
-            }}}
+            }
+    stage('docker push image') {
+            steps { withDockerRegistry(credentialsId: 'docker', toolName: 'docker') 
+               sh 'docker tag myntra:latest yashthedocker/myntra:01'
+               sh 'docker push yashthedoker/myntra:01'
+}}}}
