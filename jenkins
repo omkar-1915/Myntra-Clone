@@ -6,20 +6,26 @@ pipeline {
                 git branch: "main", url: "https://github.com/yashighokar1412/Myntra-Clone.git"
             }
         }
-    stage("docker build") {
+        stage("Docker Build") {
             steps { 
-               sh "docker build -t yashthedocker/myntra:01 ."
-               sh "docker images"
+                sh "docker build -t yashthedocker/myntra:01 ."
+                sh "docker images"
+            }
+        }
+        stage('Push to DockerHub') {
+            steps {
+                withDockerRegistry(credentialsId: 'docker', url: 'https://index.docker.io/v1/') {
+                    sh "docker push yashthedocker/myntra:01"
                 }
             }
-    stage('push DockerHub') {
-            steps {
-               withDockerRegistry(credentialsId: 'docker', url: 'https://index.docker.io/v1/'){
-               sh "docker push yashthedocker/myntra:01"
-
-   stage('Deploy to Kubernetes') {
+        }
+        stage('Deploy to Kubernetes') {
             steps { 
-              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-              sh "kubectl apply -f deployment.yml"
-              sh "kubectl apply -f service.yml"
-}}}}}}}}
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                    sh "kubectl apply -f deployment.yml"
+                    sh "kubectl apply -f service.yml"
+                }
+            }
+        }
+    }
+}
