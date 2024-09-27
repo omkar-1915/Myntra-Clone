@@ -16,4 +16,7 @@ pipeline {
             steps { 
                withDockerRegistry(credentialsId: 'docker', url: 'https://index.docker.io/v1/'){
                sh "docker push yashthedocker/myntra:01"
+
+    stage("deploy to kubernetes") {
+            steps {
 }}}}}
