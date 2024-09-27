@@ -21,8 +21,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps { 
-                   script {
-                    sh ('aws eks update-kubeconfig --name mytra --region us-east-1')
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                     sh "kubectl apply -f deployment.yml"
                     sh "kubectl apply -f service.yml" }
                 }
