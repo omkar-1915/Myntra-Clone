@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/yashighokar1412/nodejs.git'
+                git 'https://github.com/yashighokar1412/Myntra-Clone.git'
             }
         }
 
