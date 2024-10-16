@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/yashighokar1412/Myntra-Clone.git'}
+                 git branch: 'main', url: 'https://github.com/yashighokar1412/Myntra-Clone.git'}
         }
 
         stage('Sonar Quality Check') {
