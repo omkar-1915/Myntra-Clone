@@ -19,7 +19,7 @@ pipeline {
     
         stage('Deploy to Kubernetes') {
             steps {
-                withAWS(credentials: 'aws') {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'nodejs', contextName: '', credentialsId: 'k8s', namespace: '', serverUrl: '']]) {
                     sh "kubectl apply -f deployment.yml"
                 }
             }
