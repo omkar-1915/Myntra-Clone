@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: myntra
-        image: yashthedocker/myntra:01
+        image: yashthedocker/myntra:latest
         ports:
         - containerPort: 3000
