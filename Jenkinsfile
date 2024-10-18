@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 withAWS(credentials: 'aws') {
-                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl apply -f deployment.yml"
                 }
             }
         }
